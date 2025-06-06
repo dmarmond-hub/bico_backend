@@ -9,3 +9,7 @@ out/
 *.sln.docstates
 .vercel
 node_modules/
+api/
+render.yaml
+package.json
+vercel.json

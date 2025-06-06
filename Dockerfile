@@ -5,9 +5,16 @@ WORKDIR /app
 COPY Bico.csproj ./
 RUN dotnet restore
 
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish Bico.csproj -c Release -o out
+# Copy only necessary files
+COPY Controllers/ ./Controllers/
+COPY Models/ ./Models/
+COPY Services/ ./Services/
+COPY Program.cs ./
+COPY appsettings.json ./
+COPY credentials.json ./
+
+# Build the app
+RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
