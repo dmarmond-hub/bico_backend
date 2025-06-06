@@ -1,25 +1,27 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Copy csproj and restore dependencies
-COPY Bico.csproj ./
+# Copiar arquivos de projeto e restaurar dependências
+COPY *.csproj ./
 RUN dotnet restore
 
-# Copy only necessary files
-COPY Controllers/ ./Controllers/
-COPY Models/ ./Models/
-COPY Services/ ./Services/
-COPY Program.cs ./
-COPY appsettings.json ./
-COPY credentials.json ./
-
-# Build the app
+# Copiar todo o código e compilar
+COPY . ./
 RUN dotnet publish -c Release -o out
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Build da imagem de runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/out .
-EXPOSE 8080
+COPY --from=build /app/out ./
+COPY --from=build /app/credentials.json ./
+COPY --from=build /app/CertHomol.p12 ./
+
+# Configurar variáveis de ambiente
 ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+# Expor a porta que o app vai usar
+EXPOSE 8080
+
+# Iniciar a aplicação
 ENTRYPOINT ["dotnet", "Bico.dll"]
