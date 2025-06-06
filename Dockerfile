@@ -5,9 +5,19 @@ WORKDIR /app
 COPY *.csproj ./
 RUN dotnet restore
 
-# Copiar todo o código e compilar
-COPY . ./
-RUN dotnet publish Bico.csproj -c Release -o out
+# Copiar apenas os arquivos necessários
+COPY Controllers/ ./Controllers/
+COPY Models/ ./Models/
+COPY Services/ ./Services/
+COPY Properties/ ./Properties/
+COPY wwwroot/ ./wwwroot/
+COPY Program.cs ./
+COPY appsettings*.json ./
+COPY credentials*.json ./
+COPY CertHomol.p12 ./
+
+# Compilar o projeto
+RUN dotnet publish -c Release -o out
 
 # Build da imagem de runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
