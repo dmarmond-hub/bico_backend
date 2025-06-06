@@ -7,7 +7,7 @@ RUN dotnet restore
 
 # Copiar todo o código e compilar
 COPY . ./
-RUN dotnet publish -c Release -o out
+RUN dotnet publish Bico.csproj -c Release -o out
 
 # Build da imagem de runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
