@@ -1,0 +1,6 @@
+@Bico_HostAddress = http://localhost:5280
+
+GET {{Bico_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

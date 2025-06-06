@@ -1,0 +1,16 @@
+{
+  "name": "bico-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Bico application",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "build": "dotnet publish -c Release"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

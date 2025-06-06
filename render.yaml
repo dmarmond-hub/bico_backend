@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: bico-backend
+    runtime: dotnet
+    buildCommand: dotnet publish -c Release
+    startCommand: dotnet ./bin/Release/net8.0/Bico.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:10000

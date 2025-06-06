@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "dotnet publish -c Release -o publish",
+  "outputDirectory": "publish/wwwroot",
+  "framework": {
+    "version": "node18"
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api" }
+  ]
+}
