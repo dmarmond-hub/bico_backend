@@ -55,14 +55,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactFrontend", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:3000",
-                "https://bico-frontend.onrender.com",
-                "https://bico-app.vercel.app"
-            ) // URLs do seu frontend React
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials(); // Importante para cookies/token
+              .AllowAnyMethod();
     });
 });
 
